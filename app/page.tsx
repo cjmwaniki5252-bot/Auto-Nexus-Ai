@@ -1,48 +1,58 @@
 export default function Home() {
   return (
     <main style={{
-      backgroundColor: "#0a0f1c",
-      color: "#e6f1ff",
       minHeight: "100vh",
+      background: "#0a0f1c",
+      color: "#ffffff",
       padding: "20px",
-      fontFamily: "sans-serif"
+      fontFamily: "Arial"
     }}>
-      
-      <h1 style={{
-        color: "#3b82f6",
-        fontSize: "28px",
-        marginBottom: "10px"
-      }}>
-        🚗 Auto Nexus AI
+      <h1 style={{ color: "#4da6ff" }}>
+        Auto Nexus AI
       </h1>
 
-      <p style={{ color: "#94a3b8", marginBottom: "20px" }}>
-        Smart AI-powered automotive diagnostics platform
+      <p style={{ color: "#9db4d6" }}>
+        AI-powered automotive diagnostics platform
       </p>
 
       <div style={{
+        marginTop: 30,
+        padding: 20,
         background: "#111827",
-        padding: "15px",
-        borderRadius: "10px",
-        marginBottom: "15px"
+        borderRadius: 10,
+        boxShadow: "0 0 10px rgba(0,0,0,0.5)"
       }}>
-        <h3 style={{ color: "#3b82f6" }}>🔍 Diagnose Vehicle</h3>
-        <p style={{ color: "#9ca3af" }}>
-          Enter symptoms or dashboard light to get AI diagnosis.
-        </p>
-      </div>
+        <h2 style={{ color: "#4da6ff" }}>
+          Diagnose Your Vehicle
+        </h2>
 
-      <div style={{
-        background: "#111827",
-        padding: "15px",
-        borderRadius: "10px"
-      }}>
-        <h3 style={{ color: "#3b82f6" }}>📊 Vehicle Insights</h3>
-        <p style={{ color: "#9ca3af" }}>
-          View common issues by manufacturer and year.
-        </p>
-      </div>
+        <input
+          placeholder="Describe your car problem..."
+          style={{
+            width: "100%",
+            padding: 10,
+            marginTop: 10,
+            borderRadius: 6,
+            border: "none",
+            outline: "none",
+            background: "#1f2937",
+            color: "#fff"
+          }}
+        />
 
+        <button style={{
+          marginTop: 15,
+          padding: 10,
+          width: "100%",
+          background: "#2563eb",
+          color: "#fff",
+          border: "none",
+          borderRadius: 6,
+          cursor: "pointer"
+        }}>
+          Diagnose
+        </button>
+      </div>
     </main>
   );
 }
