@@ -1,27 +1,36 @@
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { problem } = body;
+    const { problem } = await req.json();
 
-    let response = "";
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are an expert automotive diagnostic AI. Give clear, professional, and helpful responses. Include possible causes and suggested fixes.",
+        },
+        {
+          role: "user",
+          content: problem,
+        },
+      ],
+    });
 
-    if (problem.toLowerCase().includes("engine")) {
-      response = "Possible engine misfire or fuel system issue.";
-    } else if (problem.toLowerCase().includes("brake")) {
-      response = "Brake pads may be worn or fluid is low.";
-    } else if (problem.toLowerCase().includes("overheat")) {
-      response = "Engine overheating. Check coolant level or radiator.";
-    } else if (problem.toLowerCase().includes("battery")) {
-      response = "Battery may be weak or alternator issue.";
-    } else {
-      response = "Issue unclear. Recommend full diagnostic scan.";
-    }
+    const result = response.choices[0].message.content;
 
-    return new Response(JSON.stringify({ result: response }), {
+    return new Response(JSON.stringify({ result }), {
       status: 200,
     });
-  } catch (err) {
+  } catch (error) {
     return new Response(JSON.stringify({ error: "Server error" }), {
       status: 500,
     });
   }
+}
