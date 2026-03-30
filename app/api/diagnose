@@ -1,23 +1,18 @@
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const { problem } = body;
 
-    const problem = body.problem;
-
-    if (!problem) {
-      return new Response(
-        JSON.stringify({ error: "No problem provided" }),
-        { status: 400 }
-      );
-    }
-
-    // Fake AI logic (we upgrade later)
     let response = "";
 
     if (problem.toLowerCase().includes("engine")) {
       response = "Possible engine misfire or fuel system issue.";
     } else if (problem.toLowerCase().includes("brake")) {
       response = "Brake pads may be worn or fluid is low.";
+    } else if (problem.toLowerCase().includes("overheat")) {
+      response = "Engine overheating. Check coolant level or radiator.";
+    } else if (problem.toLowerCase().includes("battery")) {
+      response = "Battery may be weak or alternator issue.";
     } else {
       response = "Issue unclear. Recommend full diagnostic scan.";
     }
@@ -30,3 +25,4 @@ export async function POST(req: Request) {
       status: 500,
     });
   }
+}
