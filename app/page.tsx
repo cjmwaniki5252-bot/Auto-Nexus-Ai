@@ -1,58 +1,82 @@
+"use client";
+import { useState } from "react";
+
 export default function Home() {
+  const [problem, setProblem] = useState("");
+  const [result, setResult] = useState("");
+
+  const diagnose = async () => {
+    const res = await fetch("/api/diagnose", {
+      method: "POST",
+      body: JSON.stringify({ problem }),
+    });
+
+    const data = await res.json();
+    setResult(data.result);
+  };
+
   return (
     <main style={{
       minHeight: "100vh",
-      background: "#0a0f1c",
-      color: "#ffffff",
-      padding: "20px",
-      fontFamily: "Arial"
+      background: "linear-gradient(135deg, #0f172a, #020617)",
+      color: "white",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "sans-serif",
+      padding: 20
     }}>
-      <h1 style={{ color: "#4da6ff" }}>
-        Auto Nexus AI
+      
+      <h1 style={{ fontSize: "2.5rem", marginBottom: 10 }}>
+        🚗 AutoSynex AI
       </h1>
 
-      <p style={{ color: "#9db4d6" }}>
-        AI-powered automotive diagnostics platform
+      <p style={{ color: "#94a3b8", marginBottom: 30 }}>
+        Smart Automotive Diagnostics
       </p>
 
-      <div style={{
-        marginTop: 30,
-        padding: 20,
-        background: "#111827",
-        borderRadius: 10,
-        boxShadow: "0 0 10px rgba(0,0,0,0.5)"
-      }}>
-        <h2 style={{ color: "#4da6ff" }}>
-          Diagnose Your Vehicle
-        </h2>
-
-        <input
-          placeholder="Describe your car problem..."
-          style={{
-            width: "100%",
-            padding: 10,
-            marginTop: 10,
-            borderRadius: 6,
-            border: "none",
-            outline: "none",
-            background: "#1f2937",
-            color: "#fff"
-          }}
-        />
-
-        <button style={{
-          marginTop: 15,
-          padding: 10,
+      <input
+        placeholder="Describe your car problem..."
+        value={problem}
+        onChange={(e) => setProblem(e.target.value)}
+        style={{
+          padding: 12,
           width: "100%",
-          background: "#2563eb",
-          color: "#fff",
+          maxWidth: 400,
+          borderRadius: 8,
           border: "none",
-          borderRadius: 6,
-          cursor: "pointer"
+          marginBottom: 15
+        }}
+      />
+
+      <button
+        onClick={diagnose}
+        style={{
+          padding: "12px 20px",
+          background: "#2563eb",
+          border: "none",
+          borderRadius: 8,
+          color: "white",
+          cursor: "pointer",
+          marginBottom: 20
+        }}
+      >
+        Diagnose
+      </button>
+
+      {result && (
+        <div style={{
+          background: "#020617",
+          border: "1px solid #1e293b",
+          padding: 20,
+          borderRadius: 10,
+          maxWidth: 400
         }}>
-          Diagnose
-        </button>
-      </div>
+          <strong>Result:</strong>
+          <p>{result}</p>
+        </div>
+      )}
     </main>
   );
 }
