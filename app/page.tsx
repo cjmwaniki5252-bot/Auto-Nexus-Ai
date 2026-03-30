@@ -6,6 +6,8 @@ export default function Home() {
   const [result, setResult] = useState("");
 
   const diagnose = async () => {
+    setResult("Analyzing...");
+
     const res = await fetch("/api/diagnose", {
       method: "POST",
       body: JSON.stringify({ problem }),
@@ -16,20 +18,20 @@ export default function Home() {
   };
 
   return (
-    <main style={{
-      minHeight: "100vh",
-      background: "linear-gradient(135deg, #0f172a, #020617)",
-      color: "white",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "sans-serif",
-      padding: 20
-    }}>
-      
+    <main
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0f172a, #020617)",
+        color: "#e2e8f0",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+      }}
+    >
       <h1 style={{ fontSize: "2.5rem", marginBottom: 10 }}>
-        🚗 AutoSynex AI
+        AutoSynex AI
       </h1>
 
       <p style={{ color: "#94a3b8", marginBottom: 30 }}>
@@ -45,8 +47,10 @@ export default function Home() {
           width: "100%",
           maxWidth: 400,
           borderRadius: 8,
-          border: "none",
-          marginBottom: 15
+          border: "1px solid #1e293b",
+          background: "#020617",
+          color: "#e2e8f0",
+          marginBottom: 15,
         }}
       />
 
@@ -57,24 +61,27 @@ export default function Home() {
           background: "#2563eb",
           border: "none",
           borderRadius: 8,
-          color: "white",
-          cursor: "pointer",
-          marginBottom: 20
+          color: "#fff",
+          width: "100%",
+          maxWidth: 400,
         }}
       >
         Diagnose
       </button>
 
       {result && (
-        <div style={{
-          background: "#020617",
-          border: "1px solid #1e293b",
-          padding: 20,
-          borderRadius: 10,
-          maxWidth: 400
-        }}>
+        <div
+          style={{
+            marginTop: 20,
+            background: "#020617",
+            border: "1px solid #1e293b",
+            padding: 20,
+            borderRadius: 10,
+            maxWidth: 400,
+          }}
+        >
           <strong>Result:</strong>
-          <p>{result}</p>
+          <p style={{ marginTop: 10 }}>{result}</p>
         </div>
       )}
     </main>
